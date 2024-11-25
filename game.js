@@ -1,3 +1,4 @@
+import LoadingScene from "./src/LoadingScene.js"
 import MainScene from "./src/MainScene.js";
 import GameOverScene from "./src/GameOverScene.js";
 
@@ -6,7 +7,7 @@ const config = {
     type: Phaser.AUTO,
     width: 1000,
     height: 700,
-    scene: [MainScene, GameOverScene],
+    scene: [LoadingScene, MainScene, GameOverScene],
     physics: {
         default: 'arcade', //enable arcade physics system
     }

@@ -12,17 +12,6 @@ export default class MainScene extends Phaser.Scene {
         this.scoreArray = [];
     }
 
-    preload () {
-        // Load flippy and celery assets
-        this.load.image('flippy', 'assets/images/flippy.png');
-        this.load.image('celery', 'assets/images/celery.png');
-        this.load.image('background', 'assets/images/background.png');
-        this.load.font('pixelFont', 'assets/fonts/Minecraft.ttf');
-        this.load.audio('intro', 'assets/music/BossIntro.mp3');
-        this.load.audio('main', 'assets/music/BossMain.mp3');
-        this.load.audio('loser', 'assets/music/WarpJingle.mp3');
-    }
-
     create () {
         // Set background image and music
         this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1).setAlpha(0.7);
