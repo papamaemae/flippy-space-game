@@ -2,6 +2,7 @@ export default class MainScene extends Phaser.Scene {
     constructor() {
         super({ key: 'MainScene' });
         this.cursors = null;
+        this.wasdKeys = null;
         this.flippy = null;
         this.celeryProjectiles = null;
         this.lastProjectileTime = 0;
@@ -45,6 +46,12 @@ export default class MainScene extends Phaser.Scene {
 
         // Set up arrow key input for movement
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.wasdKeys = {
+            up: this.input.keyboard.addKey('W'),
+            down: this.input.keyboard.addKey('S'),
+            left: this.input.keyboard.addKey('A'),
+            right: this.input.keyboard.addKey('D')
+        };
 
         // Create physics group to hold celery projectiles (max 10 celery sprites on screen at once)
         this.celeryProjectiles = this.physics.add.group({
@@ -77,14 +84,14 @@ export default class MainScene extends Phaser.Scene {
 
     update () {
         // Handle input (move flippy)
-        if (this.cursors.left.isDown) {
+        if (this.cursors.left.isDown || this.wasdKeys.left.isDown) {
             this.flippy.setVelocityX(this.flippy.body.velocity.x - 200); // Move left
-        } else if (this.cursors.right.isDown) {
+        } else if (this.cursors.right.isDown || this.wasdKeys.right.isDown) {
             this.flippy.setVelocityX(this.flippy.body.velocity.x + 200); // Move right
         }
-        if (this.cursors.up.isDown) {
+        if (this.cursors.up.isDown || this.wasdKeys.up.isDown) {
             this.flippy.setVelocityY(this.flippy.body.velocity.y - 200); // Move up
-        } else if (this.cursors.down.isDown) {
+        } else if (this.cursors.down.isDown || this.wasdKeys.down.isDown) {
             this.flippy.setVelocityY(this.flippy.body.velocity.y + 200); // Move down
         }
         // this.flippy.rotation += 0.02;
