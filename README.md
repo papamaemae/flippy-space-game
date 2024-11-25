@@ -2,8 +2,8 @@
 
 This is a classic top-down, 2D, dodge/survival game built in Node.js using the Phaser3 game engine.
 
-Flippy Mae-Mae is a space octopus in a grump. 
-She must dodge the most repulsive of all enemies - ***celery*** - in order to survive.
+Flippy Mae-Mae is a space octopus in a grump.  
+She must dodge the most repulsive of all enemies - ***celery*** - in order to survive.  
 How long can you keep her safe from the stringy crunch of horror?
 
 
