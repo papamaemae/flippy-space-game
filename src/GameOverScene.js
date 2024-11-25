@@ -10,12 +10,10 @@ export default class GameOverScene extends Phaser.Scene {
         const highScore = Math.max(...allScores);
         // Display "Game Over" text at the center of the screen
         this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 100, 'OH NO', {
-            font: '96px pixelFont',
+            font: '120px pixelFont',
             //fill: '#ff6e29',
             fill: '#32CD32',
         }).setOrigin(0.5);
-
-        this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1).setAlpha(0.3);
 
         // Display score
         this.add.text(this.cameras.main.centerX, this.cameras.main.centerY - 20,
@@ -33,6 +31,9 @@ export default class GameOverScene extends Phaser.Scene {
             font: '24px pixelFont',
             fill: '#32CD32'
         }).setOrigin(0.5); // center the text
+
+        // Set background image
+        this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1).setAlpha(0.3);
 
         // Set up input for restarting the game
         this.input.keyboard.on('keydown-ENTER', () => {
