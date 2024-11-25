@@ -15,14 +15,6 @@ export default class MainScene extends Phaser.Scene {
         // Load flippy and celery assets
         this.load.image('flippy', 'assets/images/flippy.png');
         this.load.image('celery', 'assets/images/celery2.png');
-        // this.load.spritesheet('celery', 'assets/images/blobSprite.png', {
-        //     frameWidth: 64,
-        //     frameHeight: 64,
-        // });
-        // this.load.spritesheet('celery', 'assets/images/nootSprite.png', {
-        //     frameWidth: 112,
-        //     frameHeight: 89,
-        // });
         this.load.image('background', 'assets/images/background.png');
         this.load.font('pixelFont', 'assets/fonts/Minecraft.ttf');
         this.load.audio('intro', 'assets/music/BossIntro.mp3');
@@ -33,19 +25,6 @@ export default class MainScene extends Phaser.Scene {
     create () {
         // Set background image and music
         this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1).setAlpha(0.7);
-        // this.anims.create({
-        //     key: 'animatedBlob', // Unique key for the animation
-        //     frames: this.anims.generateFrameNumbers('celery', { start: 0, end: 15 }),
-        //     frameRate: 50,
-        //     repeat: -1
-        // });
-        // this.anims.create({
-        //     key: 'animatedNoot', // Unique key for the animation
-        //     frames: this.anims.generateFrameNumbers('celery', { start: 0, end: 6 }),
-        //     setScale: 0.8,
-        //     frameRate: 20,
-        //     repeat: -1
-        // });
         this.introMusic = this.sound.add('intro');
         this.introMusic.play();
         // Loop second track after intro track
@@ -60,9 +39,9 @@ export default class MainScene extends Phaser.Scene {
         this.flippy = this.physics.add.image(400, 300, 'flippy');
         this.flippy.setBounce(0.8);
         this.flippy.setCollideWorldBounds(true);
-        this.flippy.setMaxVelocity(500, 500);
-        this.flippy.setMass(0.1);
-        this.flippy.setDrag(3000);
+        this.flippy.setMaxVelocity(400, 400);
+        this.flippy.setMass(1);
+        this.flippy.setDrag(1000);
 
         // Set up arrow key input for movement
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -99,14 +78,14 @@ export default class MainScene extends Phaser.Scene {
     update () {
         // Handle input (move flippy)
         if (this.cursors.left.isDown) {
-            this.flippy.setVelocityX(this.flippy.body.velocity.x - 100); // Move left
+            this.flippy.setVelocityX(this.flippy.body.velocity.x - 200); // Move left
         } else if (this.cursors.right.isDown) {
-            this.flippy.setVelocityX(this.flippy.body.velocity.x + 100); // Move right
+            this.flippy.setVelocityX(this.flippy.body.velocity.x + 200); // Move right
         }
         if (this.cursors.up.isDown) {
-            this.flippy.setVelocityY(this.flippy.body.velocity.y - 100); // Move up
+            this.flippy.setVelocityY(this.flippy.body.velocity.y - 200); // Move up
         } else if (this.cursors.down.isDown) {
-            this.flippy.setVelocityY(this.flippy.body.velocity.y + 100); // Move down
+            this.flippy.setVelocityY(this.flippy.body.velocity.y + 200); // Move down
         }
         // this.flippy.rotation += 0.02;
 
@@ -169,8 +148,6 @@ export default class MainScene extends Phaser.Scene {
             const speed = 150;
             celery.setVelocityX(Math.cos(angle) * speed);
             celery.setVelocityY(Math.sin(angle) * speed);
-            // celery.play('animatedBlob');
-            // celery.play('animatedNoot');
         }
     }
 
