@@ -1,5 +1,3 @@
-import MainScene from "./MainScene.js";
-
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
         super ({ key: 'LoadingScene'});
@@ -25,7 +23,6 @@ export default class LoadingScene extends Phaser.Scene {
     }
 
     create() {
-
-        this.scene.start('MainScene');
+        this.scene.start('TitleScene');
     }
 }
