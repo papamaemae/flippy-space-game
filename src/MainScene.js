@@ -15,7 +15,7 @@ export default class MainScene extends Phaser.Scene {
     preload () {
         // Load flippy and celery assets
         this.load.image('flippy', 'assets/images/flippy.png');
-        this.load.image('celery', 'assets/images/celery2.png');
+        this.load.image('celery', 'assets/images/celery.png');
         this.load.image('background', 'assets/images/background.png');
         this.load.font('pixelFont', 'assets/fonts/Minecraft.ttf');
         this.load.audio('intro', 'assets/music/BossIntro.mp3');
@@ -94,22 +94,24 @@ export default class MainScene extends Phaser.Scene {
         } else if (this.cursors.down.isDown || this.wasdKeys.down.isDown) {
             this.flippy.setVelocityY(this.flippy.body.velocity.y + 200); // Move down
         }
-        // this.flippy.rotation += 0.02;
 
         // Iterate over all children of the celery projectiles group
         this.celeryProjectiles.children.entries.forEach(celery => {
         
-            // if celery is active, check if it has collided with world bounds (celery disappears) or flippy (game over)
+            // If celery is active, check if it has collided with another celery (it rebounds), 
+            // world bounds (it disappears) or flippy (game over)
             if (celery.active) {
                 celery.rotation += 0.1;
+
+                this.physics.world.collide(this.celeryProjectiles, this.celeryProjectiles, this.onCeleryCollide, null, this);
             
                 if (celery.x < 0 || celery.x > this.sys.game.config.width || celery.y < 0 || celery.y > this.sys.game.config.height) {
                     celery.setActive(false).setVisible(false);
                 }
                 
                 // Check collision with flippy
-                const distance = Phaser.Math.Distance.Between(celery.x, celery.y, this.flippy.x, this.flippy.y);
-                if (distance < 60) {
+                const flippyDistance = Phaser.Math.Distance.Between(celery.x, celery.y, this.flippy.x, this.flippy.y);
+                if (flippyDistance < 60) {
                     this.endGame(); // Trigger end game
                 }
             }
@@ -152,9 +154,21 @@ export default class MainScene extends Phaser.Scene {
             const angle = Phaser.Math.Angle.Between(celery.x, celery.y, this.flippy.x, this.flippy.y);
 
             // Set the velocity to flippy
-            const speed = 150;
+            const speed = 200;
             celery.setVelocityX(Math.cos(angle) * speed);
             celery.setVelocityY(Math.sin(angle) * speed);
+            celery.setMaxVelocity(300);
+        }
+    }
+
+    onCeleryCollide(celery1, celery2) {
+        const distance = Phaser.Math.Distance.Between(celery1.x, celery1.y, celery2.x, celery2.y);
+
+        if(distance < 100) {
+            celery1.setVelocityX(celery1.body.velocity.x * -1.1); //reverse velocity on collide
+            celery1.setVelocityY(celery1.body.velocity.y * -1.1);
+            celery2.setVelocityX(celery2.body.velocity.x * -1.1);
+            celery2.setVelocityY(celery2.body.velocity.y * -1.1);
         }
     }
 
